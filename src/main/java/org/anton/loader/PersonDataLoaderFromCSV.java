@@ -5,6 +5,8 @@ import org.anton.entity.Person;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,6 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PersonDataLoaderFromCSV implements PersonDataLoaderFromFile {
+
+    Logger logger = LoggerFactory.getLogger(PersonDataLoaderFromCSV.class);
     private final String csvFilePath;
 
     public PersonDataLoaderFromCSV(String csvFilePath) {
@@ -23,6 +27,7 @@ public class PersonDataLoaderFromCSV implements PersonDataLoaderFromFile {
 
     @Override
     public List<Person> loadData() {
+        logger.info("Loading data from CSV file: {}", csvFilePath);
         List<Person> persons = new ArrayList<>();
 
         try (InputStream inputStream = getClass().getResourceAsStream(csvFilePath);
@@ -45,7 +50,7 @@ public class PersonDataLoaderFromCSV implements PersonDataLoaderFromFile {
             }
 
         } catch (IOException | NullPointerException e) {
-            System.err.println("Error while loading data from CSV file: " + e.getMessage());
+            logger.error("Error while loading data from CSV file: {}", e.getMessage());
         }
 
         return persons;

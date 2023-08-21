@@ -15,10 +15,10 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class AddressRepositoryFileImplTest {
+public class PersonRepositoryFileImplTest {
 
     private final PersonDataLoaderFromFile personDataLoaderFromFileMock = mock(PersonDataLoaderFromFile.class);
-    private AddressRepositoryFileImpl addressRepositoryTest;
+    private PersonRepositoryFileImpl addressRepositoryTest;
 
     @BeforeEach
     public void init() {
@@ -27,7 +27,7 @@ public class AddressRepositoryFileImplTest {
                 new Person("Person 2", Gender.FEMALE, LocalDate.now()))
         );
 
-        addressRepositoryTest = new AddressRepositoryFileImpl(personDataLoaderFromFileMock);
+        addressRepositoryTest = new PersonRepositoryFileImpl(personDataLoaderFromFileMock);
     }
 
     @Test

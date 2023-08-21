@@ -8,12 +8,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class AddressRepositoryFileImpl implements AddressRepository {
+public class PersonRepositoryFileImpl implements PersonRepository {
 
     private final PersonDataLoaderFromFile personDataLoaderFromFile;
     private final Map<String, Person> personMap = new HashMap<>();
 
-    public AddressRepositoryFileImpl(PersonDataLoaderFromFile personDataLoaderFromFile) {
+    public PersonRepositoryFileImpl(PersonDataLoaderFromFile personDataLoaderFromFile) {
         this.personDataLoaderFromFile = personDataLoaderFromFile;
         loadData();
     }
