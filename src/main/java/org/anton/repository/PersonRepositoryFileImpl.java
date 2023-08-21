@@ -7,6 +7,7 @@ import org.anton.loader.PersonDataLoaderFromFile;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public class PersonRepositoryFileImpl implements PersonRepository {
 
@@ -33,7 +34,9 @@ public class PersonRepositoryFileImpl implements PersonRepository {
     }
 
     @Override
-    public Person findById(String id) {
-        return personMap.get(id);
+    public Optional<Person> findByName(String name) {
+        return personMap.values().stream()
+                .filter(person -> person.name().equalsIgnoreCase(name) || person.name().startsWith(name + " "))
+                .findFirst();
     }
 }

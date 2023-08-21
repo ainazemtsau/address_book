@@ -2,10 +2,12 @@ package org.anton.repository;
 
 
 import java.util.List;
+import java.util.Optional;
+
 import org.anton.entity.Person;
 
 public interface PersonRepository {
     List<Person> getAllPerson();
 
-    Person findById(String id);
+    Optional<Person> findByName(String name);
 }

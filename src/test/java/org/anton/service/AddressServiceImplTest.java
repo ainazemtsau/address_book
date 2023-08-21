@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -17,6 +18,8 @@ import static org.mockito.Mockito.when;
 
 class AddressServiceImplTest {
 
+    public static final String BILL = "Bill";
+    public static final String PAUL = "Paul";
     private PersonRepository personRepository;
     private AddressService addressService;
 
@@ -66,24 +69,24 @@ class AddressServiceImplTest {
 
     @Test
     public void givenTwoPersons_whenCalculateAgeDifference_shouldReturnCorrectDifference() {
-        Person person1 = new Person("Bill", Gender.MALE, LocalDate.of(1984, 1, 2));
-        Person person2 = new Person("Paul", Gender.MALE, LocalDate.of(1985, 1, 1));
+        Person person1 = new Person(BILL, Gender.MALE, LocalDate.of(1984, 1, 2));
+        Person person2 = new Person(PAUL, Gender.MALE, LocalDate.of(1985, 1, 1));
 
-        when(personRepository.findById("Bill")).thenReturn(person1);
-        when(personRepository.findById("Paul")).thenReturn(person2);
+        when(personRepository.findByName(BILL)).thenReturn(Optional.of(person1));
+        when(personRepository.findByName(PAUL)).thenReturn(Optional.of(person2));
 
-        long daysDifference = addressService.daysOlder("Bill", "Paul");
+        long daysDifference = addressService.daysOlder(BILL, PAUL);
 
         assertEquals(365, daysDifference);
     }
 
     @Test
     public void givenOnePersonDoesNotExist_whenCalculateAgeDifference_shouldHandleGracefully() {
-        Person person1 = new Person("Bill", Gender.MALE, LocalDate.of(1980, 1, 1));
+        Person person1 = new Person(BILL, Gender.MALE, LocalDate.of(1980, 1, 1));
 
-        when(personRepository.findById("Bill")).thenReturn(person1);
-        when(personRepository.findById("Paul")).thenReturn(null);
+        when(personRepository.findByName(BILL)).thenReturn(Optional.of(person1));
+        when(personRepository.findByName(PAUL)).thenReturn(Optional.empty());
 
-        assertThrows(IllegalArgumentException.class, () -> addressService.daysOlder("Bill", "Paul"));
+        assertThrows(IllegalArgumentException.class, () -> addressService.daysOlder(BILL, PAUL));
     }
 }

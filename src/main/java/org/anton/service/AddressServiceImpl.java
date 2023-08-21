@@ -7,7 +7,6 @@ import org.anton.repository.PersonRepository;
 
 import java.time.temporal.ChronoUnit;
 import java.util.Comparator;
-import java.util.List;
 import java.util.Optional;
 
 public class AddressServiceImpl implements AddressService {
@@ -33,13 +32,13 @@ public class AddressServiceImpl implements AddressService {
 
     @Override
     public long daysOlder(String person1Name, String person2Name) {
-        var person1 = personRepository.findById(person1Name);
-        var person2 = personRepository.findById(person2Name);
+        var person1 = personRepository.findByName(person1Name);
+        var person2 = personRepository.findByName(person2Name);
 
-        if (person1 == null || person2 == null) {
+        if (person1.isEmpty() || person2.isEmpty()) {
             throw new IllegalArgumentException("One or both persons not found.");
         }
 
-        return ChronoUnit.DAYS.between(person1.birthDate(), person2.birthDate());
+        return ChronoUnit.DAYS.between(person1.get().birthDate(), person2.get().birthDate());
     }
 }
