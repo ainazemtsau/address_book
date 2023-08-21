@@ -9,17 +9,15 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class AddressRepositoryFileImplTest {
 
-    private PersonDataLoaderFromFile personDataLoaderFromFileMock = mock(PersonDataLoaderFromFile.class);
+    private final PersonDataLoaderFromFile personDataLoaderFromFileMock = mock(PersonDataLoaderFromFile.class);
     private AddressRepositoryFileImpl addressRepositoryTest;
 
     @BeforeEach
