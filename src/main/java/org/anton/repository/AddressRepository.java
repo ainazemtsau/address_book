@@ -6,4 +6,6 @@ import org.anton.entity.Person;
 
 public interface AddressRepository {
     List<Person> getAllPerson();
+
+    Person findById(String id);
 }
